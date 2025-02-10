@@ -13,7 +13,35 @@ let openMenu: Ref<boolean> = ref(false)
 </script>
 
 <template>
-  <div>
+  <div class="bg-black sticky top-0 flex justify-end p-2">
+    <button
+      @click="openMenu = !openMenu"
+      :class="openMenu ? 'bg-[#282828]' : 'bg-black'"
+      class="bg-black hover:bg-[#282828] rounded-full p-0.5 mtº-2 !mr-2 mt-0.5 cursor-pointer"
+    >
+      <div class="flex items-center">
+        <img
+          class="rounded-full !ml-2 !mr-2"
+          width="27"
+          src="https://yt3.ggpht.com/yti/ANjgQV9BgblrKs8AkKMMaGJajQNZvfpIrWauchR2j57oD6Q=s88-c-k-c0x00ffffff-no-rj"
+        />
+        <div class="text-white text-[14px] ml-1.5 font-semibold">John Weeks Dev</div>
+        <ChevronDown v-if="!openMenu" @click="openMenu = true" fillColor="#FFFFFF" :size="25" />
+        <ChevronUp v-else @click="openMenu = false" fillColor="#FFFFFF" :size="25" />
+      </div>
+    </button>
+  </div>
+
+  <div class="flex bg-black h-screen p-2 gap-2">
+    <div class="hidden md:flex flex-col bg-black gap-y-2 h-full w-[300px]">
+      <div class="bg-neutral-900 rounded-lg w-full">Sidebar navigation</div>
+      <div class="bg-neutral-900 rounded-lg h-full overflow-y-auto w-full">Song library</div>
+    </div>
+    <div class="bg-neutral-900 rounded-lg h-full overflow-hidden overflow-y-auto w-full">
+      <RouterView />
+    </div>
+  </div>
+  <!--  <div>
     <div
       id="TopNav"
       class="w-[calc(100%-240px)] h-[60px] fixed right-0 z-20 bg-[#101010] bg-opacity-80 flex items-center justify-between"
@@ -120,4 +148,5 @@ let openMenu: Ref<boolean> = ref(false)
     <RouterView />
     <div class="!mb-[100px]"></div>
   </div>
-</template>
+
+--></template>
