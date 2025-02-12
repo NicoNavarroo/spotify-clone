@@ -1,43 +1,92 @@
-{
-  "name": "Bad Bunny",
-  "albumName": "DeBÍ TiRAR MáS FOToS",
-  "albumCover": "/images/albumCovers/cover.avif",
-  "releaseYear": "2025",
-  "tracks": [
-    {
-      "id": 1,
-      "name": "NUEVAYoL",
-      "path": "/songs/spotifydown.com - NUEVAYoL - Bad Bunny.mp3"
-    },
-    {
-      "id": 2,
-      "name": "VOY A LLeVARTE PA PR",
-      "path": "/songs/spotifydown.com - VOY A LLeVARTE PA PR - Bad Bunny.mp3"
-    },
-    {
-      "id": 3,
-      "name": "PERFuMITO NUEVO",
-      "path": "/songs/spotifydown.com - PERFuMITO NUEVO - Bad Bunny.mp3"
-    },
-    {
-      "id": 4,
-      "name": "BAILE INoLVIDABLE",
-      "path": "/songs/spotifydown.com - BAILE INoLVIDABLE - Bad Bunny.mp3"
-    },
-    {
-      "id": 5,
-      "name": "EoO",
-      "path": "/songs/spotifydown.com - EoO - Bad Bunny.mp3"
-    },
-    {
-      "id": 6,
-      "name": "DtMF",
-      "path": "/songs/spotifydown.com - DtMF - Bad Bunny.mp3"
-    },
-    {
-      "id": 7,
-      "name": "LA MuDANZAl",
-      "path": "/songs/spotifydown.com - LA MuDANZA - Bad Bunny.mp3"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "Bad Bunny",
+    "albumName": "DeBÍ TiRAR MáS FOToS",
+    "albumCover": "https://i.scdn.co/image/ab67616d00001e02bbd45c8d36e0e045ef640411",
+    "artistImage": "https://i.scdn.co/image/ab6761610000517481f47f44084e0a09b5f0fa13",
+    "releaseYear": "2025",
+    "tracks": [
+      {
+        "id": 1,
+        "name": "NUEVAYoL",
+        "path": "/songs/spotifydown.com - NUEVAYoL - Bad Bunny.mp3"
+      },
+      {
+        "id": 2,
+        "name": "VOY A LLeVARTE PA PR",
+        "path": "/songs/spotifydown.com - VOY A LLeVARTE PA PR - Bad Bunny.mp3"
+      },
+      {
+        "id": 3,
+        "name": "PERFuMITO NUEVO",
+        "path": "/songs/spotifydown.com - PERFuMITO NUEVO - Bad Bunny.mp3"
+      },
+      {
+        "id": 4,
+        "name": "BAILE INoLVIDABLE",
+        "path": "/songs/spotifydown.com - BAILE INoLVIDABLE - Bad Bunny.mp3"
+      },
+      {
+        "id": 5,
+        "name": "EoO",
+        "path": "/songs/spotifydown.com - EoO - Bad Bunny.mp3"
+      },
+      {
+        "id": 6,
+        "name": "DtMF",
+        "path": "/songs/spotifydown.com - DtMF - Bad Bunny.mp3"
+      },
+      {
+        "id": 7,
+        "name": "LA MuDANZAl",
+        "path": "/songs/spotifydown.com - LA MuDANZA - Bad Bunny.mp3"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Myke towers",
+    "albumName": "La pantera negra",
+    "albumCover": "/images/albumCovers/cover.avif",
+    "artistImage": "https://i.scdn.co/image/ab676161000051748372345609bebaf1e948ef7f",
+    "releaseYear": "2025",
+    "tracks": []
+  },
+  {
+    "id": 3,
+    "name": "Rauw Alejandro",
+    "albumName": "Cosa nuestra",
+    "albumCover": "/images/albumCovers/cover.avif",
+    "artistImage": "https://i.scdn.co/image/ab67616100005174b271c8a0507c4c1ea795d989",
+    "releaseYear": "2025",
+    "tracks": []
+  },
+  {
+    "id": 4,
+    "name": "Karol G",
+    "albumName": "Mañana será bonito",
+    "albumCover": "/images/albumCovers/cover.avif",
+    "artistImage": "https://i.scdn.co/image/ab676161000051744b0754aefc9db490e02205ec",
+    "releaseYear": "2025",
+    "tracks": []
+  },
+  {
+    "id": 5,
+    "name": "Quevedo",
+    "albumName": "Buenas noches",
+    "albumCover": "/images/albumCovers/cover.avif",
+    "artistImage": "https://i.scdn.co/image/ab67616d00001e024b690afba75a356fcdad526e",
+    "releaseYear": "2025",
+    "tracks": []
+  },
+  {
+    "id": 6,
+    "name": "RvFv",
+    "albumName": "No disco",
+    "albumCover": "/images/albumCovers/cover.avif",
+    "artistImage": "https://i.scdn.co/image/ab676161000051747d07f2b3cab22bb93e771959",
+    "releaseYear": "2025",
+    "tracks": []
+  }
+]

@@ -3,10 +3,12 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useRoute } from 'vue-router'
 import type { RouteInterInterface } from '@/types/RouteInterface'
+import type { Ref } from 'vue'
+
 import { Icon } from '@iconify/vue'
 
 const routePath = useRoute()
-const routes: Ref<RouteInterInterface> = ref([
+const routes: Ref<RouteInterInterface[]> = ref([
   {
     name: 'Home',
     path: '/',
