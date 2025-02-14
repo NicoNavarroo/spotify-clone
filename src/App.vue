@@ -5,6 +5,7 @@ import type { Ref } from 'vue'
 
 import Navbar from './components/Navbar.vue'
 import PlayList from './components/PlayList.vue'
+import MusicPlayer from './components/MusicPlayer.vue'
 let openMenu: Ref<boolean> = ref(false)
 </script>
 
@@ -25,5 +26,7 @@ let openMenu: Ref<boolean> = ref(false)
     <div class="bg-neutral-900 rounded-lg h-full overflow-hidden overflow-y-auto w-full">
       <RouterView />
     </div>
+
+    <MusicPlayer />
   </div>
 </template>

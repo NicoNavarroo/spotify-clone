@@ -9,6 +9,6 @@ export interface ArtistInterface {
   albumName: string
   albumCover: string
   artistImage: string
-  releaseYear: strign
-  tracks: tracks[]
+  releaseYear: string
+  tracks?: tracks[]
 }

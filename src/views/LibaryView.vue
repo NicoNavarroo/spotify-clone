@@ -7,12 +7,14 @@ import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutli
 import artists from '../data/artist.json'
 import SongRow from '@/components/SongRow.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-
+import { useSongStore } from '@/stores/song'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const selectedArtist = ref(1)
+const songsStore = useSongStore()
+
+const selectedArtist = ref({})
 
 const totalSongs = computed(() => {
   return selectedArtist.value.tracks?.length
@@ -20,6 +22,19 @@ const totalSongs = computed(() => {
 onMounted(() => {
   selectedArtist.value = artists.find((artist) => artist.id === Number(route.params.id))
 })
+
+console.log(songsStore)
+const onClick = (song) => {
+  song.playSong(song)
+}
+
+const clickSong = (song) => {
+  if (!songsStore.isPaused || songsStore.artistsInfo.songName !== song.name) {
+    songsStore.updateArtistsInfo({ ...selectedArtist.value, songName: song.name })
+    songsStore.playSong(song.path)
+  }
+  songsStore.resumeSong()
+}
 </script>
 
 <template>
@@ -54,7 +69,7 @@ onMounted(() => {
       <div
         class="transition-all duration-400 bg-emerald-500 hover:bg-emerald-400 hover:scale-105 cursor-pointer w-10 h-10 xl:w-13 xl:h-13 lg:w-8 lg:h-8 bottom-20 right-5 rounded-full flex justify-center text-center items-center"
       >
-        <button class="!p-1 rounded-full" @click="playFunc()">
+        <button class="!p-1 rounded-full" @click="onClick">
           <Icon
             icon="material-symbols:play-arrow-rounded"
             v-if="true"
@@ -86,7 +101,7 @@ onMounted(() => {
     <div class="border-b border-b-[#2A2A2A] !mt-2"></div>
     <div class="!mb-4"></div>
     <ul class="w-full" v-for="(track, index) in selectedArtist.tracks" :key="track">
-      <SongRow :artist="selectedArtist" :track="track" :index="++index" />
+      <SongRow :artist="selectedArtist" :track="track" :index="++index" @update:song="clickSong" />
     </ul>
   </div>
 </template>

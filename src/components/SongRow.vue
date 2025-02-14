@@ -1,11 +1,14 @@
 <script setup>
-import { ref, toRefs, onMounted } from 'vue'
+import { ref, toRefs, onMounted, computed } from 'vue'
 import Heart from 'vue-material-design-icons/Heart.vue'
 import Play from 'vue-material-design-icons/Play.vue'
 import Pause from 'vue-material-design-icons/Pause.vue'
+import { useSongStore } from '@/stores/song'
 
+const emit = defineEmits(['update:song'])
 let isHover = ref(false)
 const isTrackTime = ref('0:00')
+const songStore = useSongStore()
 
 const props = defineProps({
   track: Object,
@@ -15,6 +18,14 @@ const props = defineProps({
 
 const { track, artist, index } = toRefs(props)
 
+const showPauseIcon = computed(() => {
+  console.log(songStore.isPlaying)
+  return (
+    songStore.isPlaying &&
+    !songStore.isPaused &&
+    songStore.artistsInfo.songName === props.track.name
+  )
+})
 onMounted(() => {
   const audio = new Audio(track.value.path)
   audio.addEventListener('loadedmetadata', function () {
@@ -34,8 +45,8 @@ onMounted(() => {
   >
     <div class="flex items-center w-full py-1.5">
       <div v-if="isHover" class="w-[40px] ml-[14px] mr-[6px] cursor-pointer">
-        <Play v-if="true" fillColor="#FFFFFF" :size="25" />
-        <Pause v-else fillColor="#FFFFFF" :size="25" @click="useSong.playOrPauseSong()" />
+        <Pause v-if="showPauseIcon" fillColor="#FFFFFF" :size="25" @click="songStore.stopSong" />
+        <Play @click="emit('update:song', track)" v-else fillColor="#FFFFFF" :size="25" />
       </div>
       <div v-else class="text-white font-semibold w-[40px] ml-5">
         <span class="text-neutral-500 text-font-semibold">
