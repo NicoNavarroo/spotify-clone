@@ -18,13 +18,11 @@ const props = defineProps({
 
 const { track, artist, index } = toRefs(props)
 
+const isSameSong = computed(() => {
+  return songStore.artistsInfo.songName === props.track.name
+})
 const showPauseIcon = computed(() => {
-  console.log(songStore.isPlaying)
-  return (
-    songStore.isPlaying &&
-    !songStore.isPaused &&
-    songStore.artistsInfo.songName === props.track.name
-  )
+  return songStore.isPlaying && !songStore.isPaused && isSameSong.value
 })
 onMounted(() => {
   const audio = new Audio(track.value.path)
@@ -54,7 +52,10 @@ onMounted(() => {
         </span>
       </div>
       <div>
-        <div class="text-white font-semibold">
+        <div
+          class="font-semibold"
+          :class="{ 'text-emerald-500': isSameSong, 'text-white': !isSameSong }"
+        >
           {{ track.name }}
         </div>
         <div class="text-sm font-semibold text-gray-400">{{ artist.name }}</div>
