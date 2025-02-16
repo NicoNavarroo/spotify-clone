@@ -1,75 +1,51 @@
-import { ref, onMounted, onUnmounted, watch, type Ref } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useSongStore } from '@/stores/song'
 import { storeToRefs } from 'pinia'
 
-export function useSongProgress() {
+export function useAudioPlayer() {
   const audio = ref<HTMLAudioElement | null>(null)
-  const duration = ref(0)
   const currentTime = ref(0)
+  const duration = ref(0)
 
-  const songPath = ref('')
-  const { artistsInfo } = storeToRefs(useSongStore())
+  const songStore = useSongStore()
+  const { artistsInfo } = storeToRefs(songStore)
 
-  const loadAudio = () => {
-    if (!songPath.value) return
+  const updateTime = () => {
+    if (audio.value) {
+      currentTime.value = audio.value.currentTime
+      console.log('Duración:', currentTime.value)
+    }
+  }
 
-    audio.value = new Audio(songPath.value)
+  const setupAudio = (src: string) => {
+    if (!src) return
+
+    audio.value = new Audio(src)
 
     audio.value.addEventListener('loadedmetadata', () => {
-      const songDuration = audio.value.duration
-      const totalMinutes = Math.floor(songDuration / 60)
-      const totalseconds = Math.floor(songDuration % 60)
-
-      duration.value = totalMinutes + ':' + totalseconds.toString().padStart(2, '0')
+      duration.value = audio.value!.duration
+      console.log('Duración:', duration.value)
     })
 
-    // Escuchar el tiempo actual de reproducción
-    audio.value.addEventListener('timeupdate', () => {
-      currentTime.value = Math.floor(audio.value!.currentTime)
-      console.log('🎧 Tiempo transcurrido:', currentTime.value)
-    })
-
-    audio.value.addEventListener('ended', () => {
-      currentTime.value = 0
-    })
+    audio.value.addEventListener('timeupdate', updateTime)
   }
 
   watch(
-    artistsInfo,
-    (newValue) => {
-      if (!newValue.songPath) {
-        // Si no hay path, reiniciamos valores
-        duration.value = 0
-        currentTime.value = 0
-        if (audio.value) {
-          audio.value.pause()
-          audio.value = null
-        }
-        return
+    () => artistsInfo,
+    (newInfo) => {
+      if (artistsInfo) {
+        console.log('asasasasasasasasa', newInfo.value.songPath)
+        setupAudio(newInfo.value.songPath)
       }
-
-      // Si hay un nuevo path, cargamos la canción
-      songPath.value = newValue.songPath
-      loadAudio()
     },
-    { deep: true },
+    { deep: true, immediate: true },
   )
-
-  onMounted(() => {
-    if (songPath.value) {
-      loadAudio()
-    }
-  })
 
   onUnmounted(() => {
     if (audio.value) {
-      audio.value.pause()
-      audio.value = null
+      audio.value.removeEventListener('timeupdate', updateTime)
     }
   })
 
-  return {
-    duration,
-    currentTime,
-  }
+  return { audio, currentTime, duration }
 }

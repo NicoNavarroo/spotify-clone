@@ -39,6 +39,7 @@ export const useSongStore = defineStore('song', () => {
   }
 
   return {
+    audio,
     isPlaying,
     isPaused,
     songsList,

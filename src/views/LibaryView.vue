@@ -26,6 +26,7 @@ onMounted(() => {
 })
 
 const clickSong = (song) => {
+  console.log(song)
   if (!songsStore.isPaused || songsStore.artistsInfo.songPlayed !== song.name) {
     songsStore.updateArtistsInfo({ songPlayed: song.name, songPath: song.path })
     songsStore.playSong(song.path)
