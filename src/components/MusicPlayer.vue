@@ -5,7 +5,7 @@ import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 
 const useSong = useSongStore()
-const { isPlaying, isPaused, audio, artistsInfo, resumeSong, stopSong } = storeToRefs(useSong)
+const { isPlaying, isPaused, audio, artistsInfo } = storeToRefs(useSong)
 
 let isHover = ref(false)
 let isTrackTimeCurrent = ref(null)
