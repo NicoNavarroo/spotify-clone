@@ -19,7 +19,7 @@ const props = defineProps({
 const { track, artist, index } = toRefs(props)
 
 const isSameSong = computed(() => {
-  return songStore.artistsInfo.songName === props.track.name
+  return songStore.artistsInfo.songPlayed === props.track.name
 })
 const showPauseIcon = computed(() => {
   return songStore.isPlaying && !songStore.isPaused && isSameSong.value

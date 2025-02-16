@@ -10,6 +10,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useSongStore } from '@/stores/song'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
 const route = useRoute()
 const songsStore = useSongStore()
@@ -21,19 +22,18 @@ const totalSongs = computed(() => {
 })
 onMounted(() => {
   selectedArtist.value = artists.find((artist) => artist.id === Number(route.params.id))
+  songsStore.updateArtistsInfo({ ...selectedArtist.value })
 })
 
-console.log(songsStore)
-const onClick = (song) => {
-  song.playSong(song)
-}
-
 const clickSong = (song) => {
-  if (!songsStore.isPaused || songsStore.artistsInfo.songName !== song.name) {
-    songsStore.updateArtistsInfo({ ...selectedArtist.value, songName: song.name })
+  if (!songsStore.isPaused || songsStore.artistsInfo.songPlayed !== song.name) {
+    songsStore.updateArtistsInfo({ songPlayed: song.name })
     songsStore.playSong(song.path)
   }
   songsStore.resumeSong()
+}
+const onClickRandomSong = () => {
+  songsStore.randomSong()
 }
 </script>
 
@@ -67,18 +67,23 @@ const clickSong = (song) => {
   <div>
     <div class="flex !gap-4 items-center justify-start !bottom-0 !m-6">
       <div
-        class="transition-all duration-400 bg-emerald-500 hover:bg-emerald-400 hover:scale-105 cursor-pointer w-10 h-10 xl:w-13 xl:h-13 lg:w-8 lg:h-8 bottom-20 right-5 rounded-full flex justify-center text-center items-center"
+        class="transition-all cursor-pointer duration-400 bg-emerald-500 hover:bg-emerald-400 cursor-pointer w-10 h-10 xl:w-13 xl:h-13 lg:w-8 lg:h-8 bottom-20 right-5 rounded-full flex justify-center text-center items-center"
       >
-        <button class="!p-1 rounded-full" @click="onClick">
+        <button class="rounded-full cursor-pointer">
+          <Pause
+            v-if="songsStore.isPlaying && !songsStore.isPaused"
+            fillColor="#181818"
+            :size="25"
+            @click="songsStore.stopSong"
+          />
           <Icon
             icon="material-symbols:play-arrow-rounded"
-            v-if="true"
+            v-else
             fillColor="#1db954"
             :size="25"
             width="2rem"
-            class="cursor-pointer"
+            @click="onClickRandomSong"
           />
-          <Pause v-else fillColor="#181818" :size="25" />
         </button>
       </div>
 

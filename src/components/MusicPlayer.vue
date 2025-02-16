@@ -1,7 +1,16 @@
 <script setup>
 import { useSongStore } from '@/stores/song'
+import { Icon } from '@iconify/vue/dist/iconify.js'
 
 const songStore = useSongStore()
+
+const onclickPlay = () => {
+  songStore.resumeSong()
+}
+
+const onclickPause = () => {
+  songStore.stopSong()
+}
 </script>
 
 <template>
@@ -14,17 +23,53 @@ const songStore = useSongStore()
       <img class="h-15" :src="songStore.artistsInfo.albumCover" alt="" />
 
       <div class="flex flex-col gap-x-2">
-        <span class="text-white text-sm">{{ songStore.artistsInfo.songName }}</span>
+        <span class="text-white text-sm">{{ songStore.artistsInfo.songPlayed }}</span>
         <span class="text-sm text-neutral-700">{{ songStore.artistsInfo.name }}</span>
       </div>
     </div>
     <div class="flex flex-col gap-x-2">
-      <span class="text-white text-sm">{{ songStore.artistsInfo.songName }}</span>
-      <span class="text-sm text-neutral-700">{{ songStore.artistsInfo.name }}</span>
+      <div class="flex items-center cursor-pointer justify-center gap-x-4">
+        <Icon
+          icon="material-symbols:skip-previous"
+          width="35"
+          height="35"
+          class="text-neutral-200"
+        />
+        <div class="bg-white rounded-full">
+          <Icon
+            v-if="songStore.isPlaying && !songStore.isPaused"
+            icon="material-symbols:pause-outline-rounded"
+            width="35"
+            height="35"
+            style="color: #040404"
+            @click="onclickPause"
+          />
+          <Icon
+            v-else
+            icon="material-symbols:play-arrow-rounded"
+            width="35"
+            height="35"
+            style="color: #040404"
+            class="cursor-pointer"
+            @click="onclickPlay"
+          />
+        </div>
+        <Icon
+          icon="material-symbols:skip-next"
+          width="35"
+          height="35"
+          class="text-neutral-200 cursor-pointer"
+        />
+      </div>
+      <div class="flex items-center text-center justify-center gap-x-2">
+        <span>2:11</span>
+        <div>barra de carga de cancion</div>
+        <div>3:20</div>
+      </div>
     </div>
 
     <div class="flex flex-col gap-x-2">
-      <span class="text-white text-sm">{{ songStore.artistsInfo.songName }}</span>
+      <span class="text-white text-sm">{{ songStore.artistsInfo.songPlayed }}</span>
       <span class="text-sm text-neutral-700">{{ songStore.artistsInfo.name }}</span>
     </div>
   </div>

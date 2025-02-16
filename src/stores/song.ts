@@ -7,14 +7,23 @@ export const useSongStore = defineStore('song', () => {
   const isPlaying: Ref<boolean> = ref(false)
   const isPaused: Ref<boolean> = ref(false)
   let artistsInfo: Ref<ArtistInterface> = ref({})
+  let songsList = ref([])
 
   const playSong = (song: string) => {
-    console.log(song)
     audio.value = new Audio()
     audio.value.src = song
     audio.value.play()
     isPlaying.value = true
+    isPaused.value = false
   }
+
+  const randomSong = () => {
+    let randomNumber = Math.round(Math.random() * artistsInfo.value.tracks.length)
+
+    artistsInfo.value.songPlayed = artistsInfo.value.tracks[randomNumber].name
+    playSong(artistsInfo.value.tracks[randomNumber].path)
+  }
+
   const stopSong = () => {
     audio.value.pause()
     isPaused.value = true
@@ -24,8 +33,23 @@ export const useSongStore = defineStore('song', () => {
     isPaused.value = false
   }
   const updateArtistsInfo = (data) => {
-    artistsInfo.value = { ...data }
+    artistsInfo.value = { ...artistsInfo.value, ...data }
   }
 
-  return { isPlaying, isPaused, artistsInfo, playSong, stopSong, resumeSong, updateArtistsInfo }
+  const addSongsList = (list) => {
+    songsList.value = [...list]
+  }
+
+  return {
+    isPlaying,
+    isPaused,
+    songsList,
+    randomSong,
+    artistsInfo,
+    addSongsList,
+    playSong,
+    stopSong,
+    resumeSong,
+    updateArtistsInfo,
+  }
 })
