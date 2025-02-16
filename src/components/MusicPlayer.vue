@@ -1,8 +1,11 @@
 <script setup>
 import { useSongStore } from '@/stores/song'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-
+import { useSongProgress } from '@/composables/UseSongTime'
+import { watch } from 'vue'
 const songStore = useSongStore()
+
+const { duration, currentTime } = useSongProgress()
 
 const onclickPlay = () => {
   songStore.resumeSong()
@@ -61,10 +64,10 @@ const onclickPause = () => {
           class="text-neutral-200 cursor-pointer"
         />
       </div>
-      <div class="flex items-center text-center justify-center gap-x-2">
-        <span>2:11</span>
+      <div class="flex items-center text-center text-neutral-300 justify-center gap-x-2">
+        <span>{{ currentTime }}</span>
         <div>barra de carga de cancion</div>
-        <div>3:20</div>
+        <div>{{ duration }}</div>
       </div>
     </div>
 

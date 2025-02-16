@@ -21,6 +21,8 @@ export const useSongStore = defineStore('song', () => {
     let randomNumber = Math.round(Math.random() * artistsInfo.value.tracks.length)
 
     artistsInfo.value.songPlayed = artistsInfo.value.tracks[randomNumber].name
+    artistsInfo.value.songPath = artistsInfo.value.tracks[randomNumber].path
+
     playSong(artistsInfo.value.tracks[randomNumber].path)
   }
 
@@ -36,17 +38,12 @@ export const useSongStore = defineStore('song', () => {
     artistsInfo.value = { ...artistsInfo.value, ...data }
   }
 
-  const addSongsList = (list) => {
-    songsList.value = [...list]
-  }
-
   return {
     isPlaying,
     isPaused,
     songsList,
     randomSong,
     artistsInfo,
-    addSongsList,
     playSong,
     stopSong,
     resumeSong,
