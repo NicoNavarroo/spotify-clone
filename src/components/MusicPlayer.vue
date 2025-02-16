@@ -1,62 +1,12 @@
 <script setup>
 import { useSongStore } from '@/stores/song'
+import { useAudioPlayer } from '@/composables/UseSongTime'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import { ref, watch, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 
 const useSong = useSongStore()
 const { isPlaying, isPaused, audio, artistsInfo } = storeToRefs(useSong)
-
-let isHover = ref(false)
-let isTrackTimeCurrent = ref(null)
-let isTrackTimeTotal = ref(null)
-let seeker = ref(null)
-let seekerContainer = ref(null)
-let range = ref(0)
-
-onMounted(() => {
-  if (audio.value) {
-    setTimeout(() => {
-      timeupdate()
-      loadmetadata()
-    }, 300)
-  }
-})
-
-const timeupdate = () => {
-  audio.value.addEventListener('timeupdate', function () {
-    var minutes = Math.floor(audio.value.currentTime / 60)
-    var seconds = Math.floor(audio.value.currentTime - minutes * 60)
-    isTrackTimeCurrent.value = minutes + ':' + seconds.toString().padStart(2, '0')
-    const value = (100 / audio.value.duration) * audio.value.currentTime
-    range.value = value
-    seeker.value = value
-  })
-}
-
-const loadmetadata = () => {
-  audio.value.addEventListener('loadedmetadata', function () {
-    const duration = audio.value.duration
-    const minutes = Math.floor(duration / 60)
-    const seconds = Math.floor(duration % 60)
-    isTrackTimeTotal.value = minutes + ':' + seconds.toString().padStart(2, '0')
-  })
-}
-
-watch(audio, () => {
-  timeupdate()
-  loadmetadata()
-})
-
-watch(
-  () => isTrackTimeCurrent.value,
-  (time) => {
-    if (time && time == isTrackTimeTotal.value) {
-      console.log('ddsdsdsd')
-    }
-  },
-)
-
+const { isTrackTimeCurrent, isTrackTimeTotal } = useAudioPlayer()
 const onclickPlay = () => {
   useSong.resumeSong()
 }
